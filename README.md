@@ -38,7 +38,7 @@
     - 背景の青い部分
     - DLサイト https://www.photo-ac.com/main/detail/3230406?title=%E6%9C%AA%E6%9D%A5%E3%80%80%E3%81%A4%E3%81%AA%E3%81%8C%E3%82%8A%E3%80%80%E3%83%86%E3%82%AF%E3%82%B9%E3%83%81%E3%83%A3%E3%83%BC%E3%80%80%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC&searchId=2327763154
 
-- イラストや 様
+- いらすとや 様  
   https://www.irasutoya.com
   - 担当イラスト
     - 上記以外
