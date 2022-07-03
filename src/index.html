@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <title>MIKU AI</title>
+
+    <script type='text/javascript' async src="data/w2v_data_light.js" ></script>
+    <script type='text/javascript' async src='data/timings.js'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/textalive-app-api/dist/index.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"
+      integrity="sha512-N4kV7GkNv7QR7RX9YF/olywyIgIwNvfEe2nZtfyj73HdjCUkAfOBDbcuJ/cTaN04JKRnw1YG1wnUyNKMsNgg3g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/gh/molleindustria/p5.play/lib/p5.play.js "></script>
+    <!-- <script src="lib/p5.min.js"></script> -->
+    <!-- <script src="lib/p5.play.js"></script> -->
+    <script type='text/javascript' src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.5"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="screan.css">
+  </head>
+  <body>
+    <div id="header">
+      <div id="control" class="far">
+        <a href="#" id="play" class="disabled">▶️</a>
+        <a href="#" id="stop" class="disabled">⏹️</a>
+      </div>
+      <!-- アーティストと楽曲の情報 / Artist and song info -->
+    </div>
+
+    <!-- 音源 / Audio souce -->
+    <div id="media" style="width:0; height=0;"></div>
+
+    <!-- 歌詞 / Lyrics text -->
+    <div id="lyrics">
+      <!-- 文字 / Text -->
+      <div id="text"></div>
+      <!-- ビートバー / Beat bar -->
+      <div id="bar"></div>
+    </div>
+
+   <div id="canvas"></div>
+   <!-- シークバー -->
+   <div id="seekbar">
+     <div></div>
+   </div>
+
+    <div class="cp_iptxt">
+      <input class="ef" value="" type="text" id="comment_box" placeholder="">
+        <label>コメント</label>
+      <span class="focus_line"><i></i></span>
+    </div>  
+
+    <a class="btn btn-custom01" id="send_button2">
+      <span class="btn-custom01-front">コメント送信</span>
+      <i class="fas fa-angle-right fa-position-right"></i>
+    </a>
+    <script src="kuromoji.js"></script>
+    <script src="data/annotation_dic.js"></script>
+    <script src="screan.js"></script>
+    <svg display="none">
+      <symbol id="s-text1">
+        <text
+          text-anchor="start"
+          class="text--line"
+          id="live-lyric1"
+          dominant-baseline="text-before-edge"
+        ></text>
+      </symbol>
+      <symbol id="s-text2">
+        <text
+          text-anchor="start"
+          class="text--line"
+          id="live-lyric2"
+          dominant-baseline="text-before-edge"
+        ></text>
+      </symbol>
+    </svg>
+  </body>
+</html>
