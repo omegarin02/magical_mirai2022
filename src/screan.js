@@ -64,7 +64,7 @@ player.addListener({
   onPlay() {
     const a = document.querySelector("#control > a#play");
     while (a.firstChild) a.removeChild(a.firstChild);
-    a.appendChild(document.createTextNode("⏸️"));
+    a.appendChild(document.createTextNode("⏸️Pause"));
     play_flag = true;  
   },
 
@@ -72,7 +72,7 @@ player.addListener({
   onPause() {
     const a = document.querySelector("#control > a#play");
     while (a.firstChild) a.removeChild(a.firstChild);
-    a.appendChild(document.createTextNode("▶️"));
+    a.appendChild(document.createTextNode("▶️Start"));
     play_flag = false;
   },
   onStop: () => {
@@ -172,13 +172,13 @@ let before_x = 0;
 let before_y = 0;
 let font;
 //ミクの初期座標と移動先の初期座標
-const center_x = 475; 
+const center_x = 495; 
 const center_y = 425;
 const left_x = 275;
 const left_y = 375;
 const right_x = 775;
 const right_y = 375;
-const back_x = 474;
+const back_x = 494;
 const back_y = 250;
 //audienceの初期座標
 const L_audience_x = 237 ;
@@ -212,7 +212,7 @@ function preload() {
 //  button.setAttribute('onclick', 'send_comment()');
   button2.setAttribute('onclick','send_comment()')
   //ai_model = tf.loadModel('./data/model.json');
-  font = loadFont('font/DotGothic16-Regular.ttf')
+  font = loadFont('font/KiwiMaru-Light.ttf')
 }
 
 function setup() {
@@ -850,7 +850,7 @@ function draw() {
           //文字を追加で表示
           textSize(int(monitor_lyrics[id][0]*0.8));
           fill(monitor_lyrics[id][1],monitor_lyrics[id][2],monitor_lyrics[id][3]);
-          stroke(127, 127, 255);
+          stroke(115, 115, 255);
           strokeWeight(2);
           text(lyrics.text,monitor_lyrics[id][4],monitor_lyrics[id][5]);
           text(lyrics.text,monitor_lyrics[id][4]+545,monitor_lyrics[id][5]);
@@ -924,7 +924,8 @@ function draw() {
     //リストの１つ目を破壊する
     emotion_num_list.shift();
     //元のスプライトに戻す
-    miku_spr.changeImage('center_normal')
+    miku_spr.changeImage('center_normal');
+    //いったんちびミクを隠す
     zoom_stage_spr_L.scale = 0;
     zoom_stage_spr_R.scale = 0;
     zoom_miku_spr_L.scale = 0;
