@@ -212,7 +212,7 @@ function preload() {
 //  button.setAttribute('onclick', 'send_comment()');
   button2.setAttribute('onclick','send_comment()')
   //ai_model = tf.loadModel('./data/model.json');
-  font = loadFont('font/DotGothic16-Regular.ttf')
+  font = loadFont('font/KiwiMaru-Light.ttf')
 }
 
 function setup() {
@@ -850,7 +850,7 @@ function draw() {
           //文字を追加で表示
           textSize(int(monitor_lyrics[id][0]*0.8));
           fill(monitor_lyrics[id][1],monitor_lyrics[id][2],monitor_lyrics[id][3]);
-          stroke(127, 127, 255);
+          stroke(115, 115, 255);
           strokeWeight(2);
           text(lyrics.text,monitor_lyrics[id][4],monitor_lyrics[id][5]);
           text(lyrics.text,monitor_lyrics[id][4]+545,monitor_lyrics[id][5]);
