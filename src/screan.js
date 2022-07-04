@@ -64,7 +64,7 @@ player.addListener({
   onPlay() {
     const a = document.querySelector("#control > a#play");
     while (a.firstChild) a.removeChild(a.firstChild);
-    a.appendChild(document.createTextNode("⏸️"));
+    a.appendChild(document.createTextNode("⏸️Pause"));
     play_flag = true;  
   },
 
@@ -72,7 +72,7 @@ player.addListener({
   onPause() {
     const a = document.querySelector("#control > a#play");
     while (a.firstChild) a.removeChild(a.firstChild);
-    a.appendChild(document.createTextNode("▶️"));
+    a.appendChild(document.createTextNode("▶️Start"));
     play_flag = false;
   },
   onStop: () => {
