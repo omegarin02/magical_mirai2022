@@ -172,13 +172,13 @@ let before_x = 0;
 let before_y = 0;
 let font;
 //ミクの初期座標と移動先の初期座標
-const center_x = 475; 
+const center_x = 495; 
 const center_y = 425;
 const left_x = 275;
 const left_y = 375;
 const right_x = 775;
 const right_y = 375;
-const back_x = 474;
+const back_x = 494;
 const back_y = 250;
 //audienceの初期座標
 const L_audience_x = 237 ;
@@ -924,7 +924,8 @@ function draw() {
     //リストの１つ目を破壊する
     emotion_num_list.shift();
     //元のスプライトに戻す
-    miku_spr.changeImage('center_normal')
+    miku_spr.changeImage('center_normal');
+    //いったんちびミクを隠す
     zoom_stage_spr_L.scale = 0;
     zoom_stage_spr_R.scale = 0;
     zoom_miku_spr_L.scale = 0;
