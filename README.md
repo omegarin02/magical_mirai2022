@@ -40,6 +40,47 @@
     3. 数値化されたデータを感情モデルにinputします。
     4. コメントがミクにとってどういうものなのかを判定した結果が返ってきます。
 
+## 使用方法
+1. githubからcloneする。
+```
+$ git clone 
+$ cd magical_mirai2022
+$ git lfs pull
+```
+
+ディレクトリ構成は下記の通り。
+```
+magical_mirai2022
+ |---src //index.htmlなどのスクリプト類と、各種データ類
+ |    |---data //モデルなどを格納
+ |    |---dict //形態素解析用の辞書データ
+ |    |---font //フォントデータ
+ |    `---images //使用するイラストデータ
+ |---lib //不足しているライブライ
+ `---README.md //これ
+```
+
+2. http-serverに配置してアクセスする。  
+下記の例は、nodeでhttp-serverをinstallしている環境。([参考](https://qiita.com/standard-software/items/1afe7b64c4c644fdd9e4))
+```
+$ cd src
+$ http-server
+```
+※Windows上で実行する場合は、セキュリティエラーが出る環境がある。その場合は下記のコマンドを実行するとPCを再起動するまで回避できる。([参考](https://qiita.com/ponsuke0531/items/4629626a3e84bcd9398f))
+```
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+```
+
+3. WebAppの表示が遅い場合は、word2vecモデルを変更してもよい。
+src/index.htmlをエディタで開き、5行目のjavascriptの指定を変更する。  
+ただし、モデルが軽くなればなるほど、ミクさんの感情にブレが生じる。
+
+変更できるモデルは下記の３種類
+- 【通常版】data/w2v_data.js
+- 【中量版】data/w2v_data_middle.js
+- 【軽量版】data/w2v_data_light.js
+
+
 ## 対応楽曲
  - 
 
