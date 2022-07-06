@@ -74,7 +74,7 @@ jsはさっぱり分からず、一から勉強し、人工知能を作るため
 - p5.play 
   https://github.com/molleindustria/p5.play
 - kuromoji
-  https://github.com/takuyaa/kuromoji.js/
+  https://github.com/takuyaa/kuromoji.js/  
   ※ build/kuromoji.jsとdictディレクトリを使用
 - keras.js
   https://github.com/transcranial/keras-js
@@ -95,12 +95,12 @@ jsはさっぱり分からず、一から勉強し、人工知能を作るため
     - ミクさんのイラスト
     - 歌詞モニタ
 
-- mamimu 様([photo AC](https://www.photo-ac.com/profile/553109))  
+- [mamimu](https://www.photo-ac.com/profile/553109)様 ([photo AC](https://www.photo-ac.com/profile/553109))  
   - 担当イラスト
     - 背景の青い部分
     - [DLサイト](https://www.photo-ac.com/main/detail/3230406?title=%E6%9C%AA%E6%9D%A5%E3%80%80%E3%81%A4%E3%81%AA%E3%81%8C%E3%82%8A%E3%80%80%E3%83%86%E3%82%AF%E3%82%B9%E3%83%81%E3%83%A3%E3%83%BC%E3%80%80%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC&searchId=2327763154)
 
-- (いらすとや)[https://www.irasutoya.com]様  
+- [いらすとや](https://www.irasutoya.com)様  
   - 担当イラスト
     - 上記以外
 
