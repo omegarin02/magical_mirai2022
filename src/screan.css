@@ -47,6 +47,8 @@ a.btn-custom01 {
   margin-bottom: 0.5rem;
   padding: 0;
   border-radius: 0.75rem;
+  margin-top: -63px;
+  margin-left: 710px;
 }
 
 a.btn-custom01:before {
@@ -154,9 +156,10 @@ a.btn-custom01:active:after {
   margin: 2px;
 }
 .cp_iptxt input[type='text'] {
-  font: 15px/24px sans-serif;
+  font: 24px sans-serif;
   box-sizing: border-box;
   width: 700px;
+  height: 60px;
   letter-spacing: 1px;
   //padding-left: 4em;
 }
@@ -238,6 +241,7 @@ a.btn-custom01:active:after {
   transition: 0.3s;
   letter-spacing: 0.5px;
   color: #aaaaaa;
+  font-size: 80%;
 }
 .ef:focus ~ label, .cp_iptxt.ef ~ label {
   font-size: px;
