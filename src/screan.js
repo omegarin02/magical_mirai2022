@@ -102,8 +102,6 @@ seekbar.addEventListener("click", (e) => {
     );
   }
   lyrics = player.video.getChar(lyrics_id)
-  console.log(lyrics.startTime)
-  console.log(position)
   if(lyrics.startTime < position){
     console.log('True')
     timing_id = 0;
@@ -149,7 +147,7 @@ let comment_buff = 20;//コメント欄のバッファ
 let comment_text;//コメント欄に表示するためのコメント
 let show_comments_list = [];
 let show_comments;
-let font_size = 12;//コメントの字の大きさ
+let font_size = 20;//コメントの字の大きさ
 let time_span = 0;//
 let button = document.getElementById("send_button");//
 let button2 = document.getElementById("send_button2")
@@ -341,11 +339,8 @@ function prediction(comment_vec){
     console.log('load model')
     console.log(tf.tensor2d(comment_vec));
     tf_vector = tf.tensor2d(comment_vec);
-    //reshaped = tf_vector.reshape([null,1000])
-    //console.log(reshaped)
     result = model.predict(tf_vector);
     console.log("check result")
-//    result.array().then(array => console.log(array));
     result.data().then(data => { 
       console.log(data);
       max_index = 0;
@@ -360,7 +355,6 @@ function prediction(comment_vec){
       console.log(max_index)
       });
   });
-  //console.log(ai_model.predict(comment_vec));
 }
 
  
@@ -371,8 +365,8 @@ function send_comment(event){ //コメント送信ボタンが押された時の
     let loop_num = 0;
     while(max_length <= tmp_comment.length){
       //tmp_commentからmax_lengthだけ取り出す。
-      show_comments_list.push(tmp_comment.substring(0,max_length));
-      tmp_comment = tmp_comment.slice(max_length);
+      show_comments_list.push(tmp_comment.substring(0,max_length-1));
+      tmp_comment = tmp_comment.slice(max_length-1);
       //show_commnets_listのcomment_id番+loopに挿入する。
       loop_num ++;
     }
@@ -875,7 +869,6 @@ function draw() {
   stroke(127,191,255);
   strokeWeight(1);
   for (let comment_id=0;comment_id < show_comments_list.length;comment_id++){
-    //入らない場合は分割する
     text(show_comments_list[comment_id],screan_width+comment_buff+font_size,comment_buff+font_size*comment_id,comment_form_width-comment_buff*2,comment_form_height-comment_buff*2);
   }
   if((emotion_num_list.length > 0) && (do_emotion_flag === false)){//感情判定された結果がある場合。
@@ -946,9 +939,9 @@ function draw() {
     textSize(20)
     fill(255,0,0)
     text(position,0,600);
-  
-    console.log(kubun)
   }
+    console.log(kubun)
+  
   frame_num++;
   if(frame_num >= 60){
     frame_num = 0;
