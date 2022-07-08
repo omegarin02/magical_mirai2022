@@ -83,7 +83,6 @@ player.addListener({
     monitor_start_time = 0;
     timing_id = 0;
     monitor_timing_id=0;
-    miku_position = 1;
   },
   onTimeUpdate(position) {
     // シークバーの表示を更新
@@ -207,9 +206,7 @@ function preload() {
   stage_img = loadImage('./images/sample_stage2.png');
   monitor_img_L = loadImage('./images/monitor_v2.png');
   monitor_img_R = loadImage('./images/monitor_v2_R.png');
-//  button.setAttribute('onclick', 'send_comment()');
   button2.setAttribute('onclick','send_comment()')
-  //ai_model = tf.loadModel('./data/model.json');
   font = loadFont('font/KiwiMaru-Light.ttf')
 }
 
@@ -219,17 +216,13 @@ function setup() {
   let canvas = createCanvas(screan_width+comment_form_width, screan_height, P2D);
   canvas.parent('canvas');
   //stageのsprを作る
-  //`stage_img.resize(screan_width,screan_height);
   stage_spr = createSprite(screan_width/2,screan_height/2);
   stage_spr.addImage(stage_img,screan_width/2,0);
   //観客のsprを作る
-//  audience_img.resize(screan_width/2,0);
   audience_spr_L = createSprite(L_audience_x,audience_y);
   audience_spr_L.addImage(audience_img); 
-//  audience_spr_L.scale = 0.000001;//1.5
   audience_spr_R = createSprite(R_audience_x,audience_y);
   audience_spr_R.addImage(audience_img); 
-//  audience_spr_R.scale = 0.000001;
   //ミクのsprを作る
   miku_spr = createSprite(center_x,center_y);
   miku_spr.addImage('center_normal',miku_img);
@@ -267,7 +260,6 @@ function setup() {
 }
 
 function check_annotation_miku(data){
-  //console.log("check_annotation_miku");
   for (let index = 0 ; index < miku_data_list.length; index++){
     if (data.indexOf(miku_data_list[index]) >= 0){
       return new Array(50).fill(1.0);
@@ -276,7 +268,6 @@ function check_annotation_miku(data){
   return new Array(50).fill(0.0);
 }
 function check_annotation_negaposi(data){
-  //console.log("chekc_annotatoin_nagaposi");
   for (let index = 0; index < positive_word_list.length; index++){
     if (data.indexOf(positive_word_list[index]) >= 0 ){
       return new Array(50).fill(1.0);
@@ -321,15 +312,11 @@ function predict_comment(data){
       }
     };
 
-    //console.log(tokens);
     vector = check_annotation_miku(data);//話題がミクであるか判定
-    //console.log(vector);
     parsed_vec = parsed_vec.concat(vector);
     vector = check_annotation_negaposi(data);//ネガポジにかかわるワードがあるか 
-    //console.log(vector);
     parsed_vec = parsed_vec.concat(vector);
     score = prediction([parsed_vec]);//ミクの感情を判定する処理
-    //console.log(argMax(score));//.arraySync()
   });
 }
 
@@ -460,7 +447,7 @@ function draw() {
         miku_spr.position.y = center_y;
         audience_spr_L.position.y = audience_y;
         audience_spr_R.position.y = audience_y;
-      }//1ko 0.125
+      }
       if (spend_time < 125){
         miku_spr.position.y -= 1;
       }else if(spend_time < 250 ){
@@ -883,7 +870,6 @@ function draw() {
     before_y = miku_spr.position.y;
   }
   if((emotion_start_time + emotion_span > position) && do_emotion_flag === true){//１回だけイラストを切り替える
-    //console.log('change emotion')
     do_emotion_flag = true;
     if (emotion_num == 0){//happy
       miku_spr.changeImage('center_happy');
