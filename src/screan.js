@@ -414,6 +414,7 @@ function draw() {
              (242650 < position && position < 244000)){//「へと」で伸びるミクさん
       if(kubun != 1){
         spend_time = 0;
+        miku_spr.rotation = 0;
         kubun = 1;
         reset_center();
       }
@@ -643,10 +644,11 @@ function draw() {
         miku_spr.changeImage('center_very_happy');
       }
     }
+    console.log
     miku_spr.position.x = center_x;
     miku_spr.position.y -= 10;
-    audience_spr_L.position -= 1;
-    audicene_spr_R.position -= 1;
+    audience_spr_L.position.y -= 1;
+    audience_spr_R.position.y -= 1;
   }else if( (162200 < position && position < 164900) || 
             (167640 < position && position < 170000) ){//2番サビ「熱を帯びて」「キミに届け」
     if(kubun != 9){
@@ -718,6 +720,8 @@ function draw() {
       }
       if(spend_time < 400){
         miku_spr.position.y -= 1;
+        audience_spr_L.position.y -= 0.2;
+        audience_spr_R.position.y -= 0.2;
         if(do_emotion_flag === false){
           miku_spr.changeImage('center_happy');
         }
@@ -908,8 +912,15 @@ function draw() {
       audience_spr_L.position.y = audience_y - 15;
       audience_spr_R.position.y = audience_y - 15 ;     
     }
+  }else{
+    if(kubun!= 99){
+      kubun = 99
+    }
+    if(24265 < position && position > 241550){
+      reset_center();
+      miku_spr.rotation = 0;
+    }
   }
-
 
 
 
