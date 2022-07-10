@@ -1,3 +1,6 @@
+## 作品デモ動画リンク
+
+
 ## 概要
 本プログラムは、機械学習を用いて、ユーザが入力した言葉（自然言語）を解析し、  
 その言葉がミクさんをどのような感情にさせるか、リアルタイムで反応を示すものを作成しました。  
@@ -10,20 +13,20 @@
 
 作りは、下記画像の赤い枠にコメントを打ち込み、「コメント送信」ボタンをクリックすると  
 そのコメントをリアルタイムに解析し、ミクさんが反応を示してくれます。  
-ちなみに、コメントを入力すると、歌詞モニターに大きくミクさんが映し出される仕様になってます。
+ちなみに、コメントを入力すると、歌詞モニターに大きくミクさんが映し出される仕様になっています。
 ![image](https://user-images.githubusercontent.com/107312091/178005176-9c04b042-14a2-4702-aed3-e1b074038880.png)
-
 
 
 ミクさんにとってうれしいコメントと判断すると... 非常に喜んでくれます。
 ![image](https://user-images.githubusercontent.com/107312091/178001577-9cdafe34-b952-4b9e-856e-488cbe5a6d6f.png)  
 
-ミクさんにとっては嬉しいわけではないけど、悪い言葉ではないと判断す...笑顔で微笑んでくれます。  
+ミクさんにとっては嬉しいわけではないけど、悪い言葉ではないと判断すると...笑顔で微笑んでくれます。  
 ![image](https://user-images.githubusercontent.com/107312091/178001685-62e58c2b-d31f-467e-8407-e95b01a29a92.png)  
 
 ミクさんにとって悪い言葉やあからさまな悪口だと判断すると、悲しみます。（言わないであげてください）  
 ![image](https://user-images.githubusercontent.com/107312091/178001779-ee52d356-929c-427f-9da0-54aab7f23045.png)  
 
+なお、投稿されたコメントは画面右に記入されていきます。  
 
 ## 人工知能実装概要
  - モデルの作成
@@ -82,6 +85,15 @@ src/index.htmlをエディタで開き、5行目のjavascriptの指定を変更�
 - 【中量版】data/w2v_data_middle.js
 - 【軽量版,load時間1秒程度】data/w2v_data_light.js
 
+## 環境
+- 動作確認環境
+  - サーバ：Node 16.14.2 for windows (http-server)
+  - ブラウザ：Vivaldi、chrome（スマホは未対応。）
+
+- 開発環境
+  - centOS7のコンテナ
+    - モデル作成
+    - コーディング全般
 
 ## 対応楽曲
  - Loading Memories / せきこみごはん feat. 初音ミク
@@ -103,26 +115,32 @@ jsはさっぱり分からず、一から勉強し、人工知能を作るため
 
 人工知能を作っているときは、１つ１つミクさんと開発者が一歩ずつ進化しているような気がして、ここでも夢のような時間を過ごすことができました。
 
+
 ### 完成して...
 感情を持ってミクさんが反応してくれた時の喜びは、破壊力満点でした！！！  
 私たちは、自分のミクさんを信じます。１曲にすべてをかけます。
 
 
 ## 使用した主なライブラリ
-
-- Text Alive App
-  https://github.com/TextAliveJp/textalive-app-api
-- p5.js
-  https://github.com/processing/p5.js
-- p5.play 
-  https://github.com/molleindustria/p5.play
-- kuromoji
-  https://github.com/takuyaa/kuromoji.js/  
-  ※ build/kuromoji.jsとdictディレクトリを使用
-- keras.js
-  https://github.com/transcranial/keras-js
-- TensorFlow.js
-  https://www.tensorflow.org/js/tutorials?hl=ja
+- js関係
+  - Text Alive App
+    https://github.com/TextAliveJp/textalive-app-api
+  - p5.js
+    https://github.com/processing/p5.js
+  - p5.play 
+    https://github.com/molleindustria/p5.play
+  - kuromoji
+    https://github.com/takuyaa/kuromoji.js/  
+    ※ build/kuromoji.jsとdictディレクトリを使用
+  - keras.js
+    https://github.com/transcranial/keras-js
+  - TensorFlow.js
+    https://www.tensorflow.org/js/tutorials?hl=ja
+- python関係
+  - gensim
+    https://github.com/RaRe-Technologies/gensim
+  - Keras 
+    https://github.com/keras-team/keras
 
 ## 使用したツール
 - Wikipediaの日本語の文書すべて(コーパス)
@@ -162,10 +180,8 @@ jsはさっぱり分からず、一から勉強し、人工知能を作るため
    - VOCALOIDにはまったきっかけ：歌い手様からの逆輸入
    - 好きなボカロのキャラ：鏡音レン
 
-## 免責事項・注意事項
-絵師様をはじめとする、全クリエーターのために下記を守って使用してくださいますようよろしくお願いします。
-- いかなる場合でも、本スクリプトを使用したことによって発生した損害等の責任は負いかねます。
+## 免責事項・注意事項  
 - 本コンテストの規約に反する使い方をされた場合の責任は負いかねます。
 - Aoi様のイラストは、マジカルミライ(本年度以外のイベントも含む)の運営上必要な場合を除き、イラストの転載は禁止します。
-- Aoi様以外のイラストは、各サイトの利用規約上、本作品中でのみお使い頂けます。
+- 本リポジトリにアップされているAoi様以外のイラストは、本作品の一部としてアップロードしており、本コンテストの本作品でのみ使用が許可されています。したがって、イラストの改変やイラストだけ入手したい方は、お手数ですが、それぞれの掲載元からご自身でダウンロードしてご利用頂ください。
 - スクリプトの改修依頼などは原則お受けできません。（運営上必要な場合は可能な限り対応します。）
