@@ -1016,6 +1016,8 @@ function draw() {
     }else{
       zoom_miku_spr_L.position.y = monitor_miku_y + (before_y - miku_spr.position.y)*-0.8;
       zoom_miku_spr_R.position.y = zoom_miku_spr_L.position.y;
+      zoom_miku_spr_L.rotation = miku_spr.rotation;
+      zoom_miku_spr_R.rotation = miku_spr.rotation;
     }
 
   }else if(emotion_start_time + emotion_span < position && do_emotion_flag === true){//表示時間が終わったとき
