@@ -203,7 +203,7 @@ function preload() {
   miku_thanks_img = loadImage('./images/miku_thanks.png');
   miku_very_happy_img = loadImage('./images/miku_very_happy.png');
   audience_img = loadImage('./images/audience.png');
-  stage_img = loadImage('./images/sample_stage2.png');
+  stage_img = loadImage('./images/stage.png');
   monitor_img_L = loadImage('./images/monitor_v2.png');
   monitor_img_R = loadImage('./images/monitor_v2_R.png');
   button2.setAttribute('onclick','send_comment()')
