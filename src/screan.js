@@ -161,6 +161,8 @@ let monitor_lyrics;//画面に表示する文字列の座標情報などが入�
 let monitor_timings;//monitor_lyricsに加え、表示終了時間を定義しているもの
 let emotion_num_list = [];//感情推定結果と推定したときの曲の再生位置が格納されている変数
 let do_emotion_flag = false;//感情表現を実行中であるかを示すflag
+let running_flag = false;
+let running_direction = ''
 let emotion_start_time = -1;//感情表現を開始した時間を格納している変数
 let emotion_num = -1;//感情ID（0:happy, 1:sad, 2:thanks(neutral))
 let emotion_span = 5000;
@@ -202,6 +204,8 @@ function preload() {
   miku_sad_img = loadImage('./images/miku_sad_v2.png');
   miku_thanks_img = loadImage('./images/miku_thanks.png');
   miku_very_happy_img = loadImage('./images/miku_very_happy.png');
+  miku_running_left = loadImage('./images/running_left.png');
+  miku_running_right = loadImage('./images/running_right.png')
   audience_img = loadImage('./images/audience.png');
   stage_img = loadImage('./images/stage.png');
   monitor_img_L = loadImage('./images/monitor_v2.png');
@@ -230,6 +234,8 @@ function setup() {
   miku_spr.addImage('center_sad',miku_sad_img);
   miku_spr.addImage('center_thanks',miku_thanks_img);
   miku_spr.addImage('center_very_happy',miku_very_happy_img);
+  miku_spr.addImage('running_left',miku_running_left);
+  miku_spr.addImage('running_right',miku_running_right);
   //monitorのsprを作る
   monitor_spr_L = createSprite(225,128);
   monitor_spr_L.addImage(monitor_img_L);
@@ -248,6 +254,8 @@ function setup() {
   zoom_miku_spr_L.addImage('center_sad',miku_sad_img);
   zoom_miku_spr_L.addImage('center_thanks',miku_thanks_img);
   zoom_miku_spr_L.addImage('center_very_happy',miku_very_happy_img);
+  zoom_miku_spr_L.addImage('running_left',miku_running_left);
+  zoom_miku_spr_L.addImage('runnning_right',miku_running_right);
 
   zoom_miku_spr_R = createSprite(R_monitor_miku_x,monitor_miku_y);
   zoom_miku_spr_R.addImage('center_normal',miku_img);
@@ -255,6 +263,9 @@ function setup() {
   zoom_miku_spr_R.addImage('center_sad',miku_sad_img);
   zoom_miku_spr_R.addImage('center_thanks',miku_thanks_img);
   zoom_miku_spr_R.addImage('center_very_happy',miku_very_happy_img);
+  zoom_miku_spr_R.addImage('running_left',miku_running_left);
+  zoom_miku_spr_R.addImage('runnning_right',miku_running_right);
+
   zoom_miku_spr_L.scale = 0;
   zoom_miku_spr_R.scale = 0;
 }
@@ -379,7 +390,8 @@ function reset_center(){
   if(do_emotion_flag === false){
     miku_spr.changeImage('center_normal');
   }
-
+  running_flag = false;
+  running_direction = ''
 }
 
 function draw() {
@@ -397,6 +409,7 @@ function draw() {
   }else{
     //ミクの動きに関する処理
     if( 2630 < position && position < 27100){//最初の部分
+      running_flag = false;
       if(frame_num % 3 == 0 ) {//3fに１回少し移動する
         miku_spr.position.y --;
         audience_spr_L.position.y -= 0.5;
@@ -480,7 +493,7 @@ function draw() {
               (74100 < position && position < 96100 ) || 
               (119700 < position && position < 130200) ||
               (140150 < position && position < 162200) ||
-              (190500 < position && position < 193000) ||
+              (190500 < position && position < 194000) ||
               (211100 < position && position < 220500) || 
               (228300 < position && position < 231700) || 
               (239150 < position && position < 241550)) {//1番Aメロ、サビ、Cメロの一部
@@ -510,7 +523,7 @@ function draw() {
       }else if((position > 49600 && position < 50600) || 
                (position > 57000 && position < 60000) || 
                (position > 167650 && position < 172000) || 
-               (position > 190500 && position < 193000) ||
+               (position > 190500 && position < 194000) ||
                (228300 < position && position < 231700) ||
                (239150 < position && position < 240450)){//center
         miku_position = 1;
@@ -664,13 +677,18 @@ function draw() {
       if(do_emotion_flag === false){
         miku_spr.changeImage('center_normal');
       }
+      running_flag = false;
     }
     if((position > 162200 && position < 163946) || 
        (position > 167640 && position < 170000)) {
+      running_flag = true;
       miku_spr.position.x -= 2;
       audience_spr_L.position.y -= 0.2;
       audience_spr_R.position.y -= 0.2;
+      running_direction = 'running_left'
+      miku_spr.changeImage(running_direction);
     }else{
+      running_flag = false;
       if(spend_time == 0){
         audience_spr_L.position.y = audience_y;
         audience_spr_R.position.y = audience_y;
@@ -707,12 +725,17 @@ function draw() {
       if(do_emotion_flag === false){
         miku_spr.changeImage('center_normal');
       }
+      running_flag = false;
     }
     if(position < 166670){
+      running_flag = true;
       miku_spr.position.x += 4;
       audience_spr_L.position.y -= 0.2;
       audience_spr_R.position.y -= 0.2; 
+      running_direction = 'running_right'
+      miku_spr.changeImage(running_direction);
     }else{
+      running_flag = false;
       if(spend_time == 0){
         audience_spr_L.position.y = audience_y;
         audience_spr_R.position.y = audience_y; 
@@ -744,6 +767,7 @@ function draw() {
       audience_spr_L.position.y = audience_y;
       audience_spr_R.position.y = audience_y;
       spend_time = 0;
+      running_flag = false;
       if(do_emotion_flag === false){
         miku_spr.changeImage('center_normal');
       }
@@ -804,12 +828,16 @@ function draw() {
       miku_spr.rotation = 0;
       spend_time = 0;
       jump_flag = false;
+      running_flag = false;
       if(do_emotion_flag === false){
         miku_spr.changeImage('center_normal');
       }
     }
     //x軸の移動のみ
     if((184000 < position && position < 184800  )){
+      running_flag = true;
+      running_direction = 'running_left'
+      miku_spr.changeImage(running_direction);
       miku_spr.position.x -= 4;
       audience_spr_L.position.y -= 0.2;
       audience_spr_R.position.y -= 0.2;
@@ -822,6 +850,9 @@ function draw() {
         audience_spr_R.position.y = audience_y;
 
       }
+      running_flag = true;
+      running_direction = 'running_right'
+      miku_spr.changeImage(running_direction);
       miku_spr.position.x += 4;
       audience_spr_L.position.y -= 0.2;
       audience_spr_R.position.y -= 0.2;
@@ -841,6 +872,7 @@ function draw() {
     if((184800 < position && position < 185300) ||
         (186150 < position && position < 186700) || 
         (187100 < position && position < 187540)){
+      running_flag = false;
       if(jump_flag === false){
         miku_spr.changeImage('center_very_happy');
         jump_flag = true;
@@ -902,6 +934,7 @@ function draw() {
       audience_spr_L.position.y = audience_y;
       audience_spr_R.position.y = audience_y;
       jump_flag = false;
+      running_flag = false;
     }
     if(position < 210000){
       miku_spr.position.x -= 2
@@ -972,7 +1005,7 @@ function draw() {
   //コメント描画
 
   textSize(font_size);
-  fill(255,0,0);
+  fill(127,191,255);
   stroke(127,191,255);
   strokeWeight(1);
   for (let comment_id=0;comment_id < show_comments_list.length;comment_id++){
@@ -991,18 +1024,23 @@ function draw() {
   }
   if((emotion_start_time + emotion_span > position) && do_emotion_flag === true){//１回だけイラストを切り替える
     do_emotion_flag = true;
-    if (emotion_num == 0){//happy
-      miku_spr.changeImage('center_happy');
-      zoom_miku_spr_L.changeImage('center_happy');
-      zoom_miku_spr_R.changeImage('center_happy');
-    }else if(emotion_num == 1){//sad
-      miku_spr.changeImage('center_sad');
-      zoom_miku_spr_L.changeImage('center_sad');
-      zoom_miku_spr_R.changeImage('center_sad');
-    }else if(emotion_num == 2){//thanks
-      miku_spr.changeImage('center_thanks');
-      zoom_miku_spr_L.changeImage('center_thanks');
-      zoom_miku_spr_R.changeImage('center_thanks');
+    if(running_flag){
+      zoom_miku_spr_L.changeImage(running_direction);
+      zoom_miku_spr_R.changeImage(running_direction);
+    }else{
+      if (emotion_num == 0){//happy
+        miku_spr.changeImage('center_happy');
+        zoom_miku_spr_L.changeImage('center_happy');
+        zoom_miku_spr_R.changeImage('center_happy');
+      }else if(emotion_num == 1){//sad
+        miku_spr.changeImage('center_sad');
+        zoom_miku_spr_L.changeImage('center_sad');
+        zoom_miku_spr_R.changeImage('center_sad');
+      }else if(emotion_num == 2){//thanks
+        miku_spr.changeImage('center_thanks');
+        zoom_miku_spr_L.changeImage('center_thanks');
+        zoom_miku_spr_R.changeImage('center_thanks');
+      }
     }
     //ちびミクの動き再現
     if(before_x != miku_spr.position.x){
@@ -1038,10 +1076,10 @@ function draw() {
   //デバッグ用のグリッド線描画
   if(false){
     stroke(255,0,0)
-    for (let i = 50; i < screan_width; i=i+50){
+    for (let i = 25; i < screan_width; i=i+25){
         line(i,0,i,screan_height)
     }
-    for (let i = 50; i< screan_height; i=i+50){
+    for (let i = 25; i< screan_height; i=i+25){
         line(0,i,screan_width,i)
     }
     textSize(20)
