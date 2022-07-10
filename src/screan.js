@@ -347,25 +347,27 @@ function prediction(comment_vec){
  
 function send_comment(event){ //コメント送信ボタンが押された時の時の処理
   comment_text = comment.value;//コメントを読み取る
-  if(comment_text.length > max_length){
-    let tmp_comment = comment_text;
-    let loop_num = 0;
-    while(max_length <= tmp_comment.length){
-      //tmp_commentからmax_lengthだけ取り出す。
-      show_comments_list.push(tmp_comment.substring(0,max_length-1));
-      tmp_comment = tmp_comment.slice(max_length-1);
-      //show_commnets_listのcomment_id番+loopに挿入する。
-      loop_num ++;
+  if(comment_text.length != 0){
+    if(comment_text.length > max_length){
+      let tmp_comment = comment_text;
+      let loop_num = 0;
+      while(max_length <= tmp_comment.length){
+        //tmp_commentからmax_lengthだけ取り出す。
+        show_comments_list.push(tmp_comment.substring(0,max_length-1));
+        tmp_comment = tmp_comment.slice(max_length-1);
+        //show_commnets_listのcomment_id番+loopに挿入する。
+        loop_num ++;
+      }
+      console.log('check')
+      console.log(tmp_comment)
+      show_comments_list.push(tmp_comment);
+    }else{
+      show_comments_list.push(comment_text);//コメント配列に追加する
     }
-    console.log('check')
-    console.log(tmp_comment)
-    show_comments_list.push(tmp_comment);
-  }else{
-    show_comments_list.push(comment_text);//コメント配列に追加する
+    console.log(b);
+    comment.value = "";
+    predict_comment(comment_text);//形態素解析解析してベクトルを返す処理
   }
-  console.log(b);
-  comment.value = "";
-  predict_comment(comment_text);//形態素解析解析してベクトルを返す処理
 }
 
 function reset_center(){
