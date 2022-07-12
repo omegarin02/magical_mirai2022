@@ -937,9 +937,13 @@ function draw() {
       running_flag = false;
     }
     if(position < 210000){
-      miku_spr.position.x -= 2
+      running_flag = true;
+      running_direction = 'running_right'
+      miku_spr.changeImage(running_direction);
+      miku_spr.position.x += 2;
     }else{
       if(jump_flag === false){
+        funning_flag = false;
         miku_spr.changeImage('center_very_happy');
       }
       miku_spr.position.x = center_x
