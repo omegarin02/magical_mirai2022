@@ -436,6 +436,10 @@ function draw() {
       miku_spr.position.y -= 0.5;
       audience_spr_L.position.y -= 0.25;
       audience_spr_R.position.y -= 0.25;
+      if ((194030 < position && position < 196500) || 
+          (242650 < position && position < 244000)){
+        miku_spr.changeImage('center_thanks');
+      }
     }else if((29100 < position && position < 36000) || 
             (96100 < position && position < 106400) || 
             (220500 < position && position < 228350) ||
@@ -891,6 +895,7 @@ function draw() {
         audience_spr_R.position.y += 0.5;
       }
     }else if (188990 < position && position < 190500 ){
+      miku_spr.changeImage('center_thanks');
       miku_spr.position.y -= 1;
       audience_spr_L.position.y -= 0.1;
       audience_spr_R.position.y -= 0.1;
@@ -955,9 +960,18 @@ function draw() {
     if(kubun!= 99){
       kubun = 99
     }
-    if(24265 < position && position > 241550){
+    if(24265 < position || 
+      (241550 > position && position < 243000)){
+      console.log('hoge')
       reset_center();
       miku_spr.rotation = 0;
+    }else if (position > 244000) {
+      miku_spr.changeImage('center_thanks');
+      miku_spr.rotation = 0;
+      miku_spr.position.x = center_x;
+      miku_spr.position.y = center_y;
+      audience_spr_L.position.y = audience_y;
+      audience_spr_R.position.y = audience_y;
     }
   }
 
