@@ -78,12 +78,13 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 
 3. WebAppの表示が遅い場合は、word2vecモデルを変更してもよい。
 src/index.htmlをエディタで開き、5行目のjavascriptの指定を変更する。  
-ただし、モデルが軽くなればなるほど、ミクさんの感情にブレが生じる。
+FULL版は、サイズが大きく環境によっては正常に動かないことがあるので、中量版を推奨する。
+
 
 変更できるモデルは下記の３種類
-- 【通常版,load時間2分程度】data/w2v_data.js
-- 【中量版】data/w2v_data_middle.js
-- 【軽量版,load時間1秒程度】data/w2v_data_light.js
+- 【FULL版,load時間2分程度】data/w2v_data_full.js 
+- 【通常版,load時間3秒程度】data/w2v_data.js
+- 【軽量版,load時間1秒程度】data/w2v_data_light.js 
 
 ## 環境
 - 動作確認環境
