@@ -409,7 +409,11 @@ function draw() {
   }else{
     //ミクの動きに関する処理
     if( 2630 < position && position < 27100){//最初の部分
-      running_flag = false;
+      if(kubun != 0){
+        kubun = 0
+        reset_center();
+        running_flag = false;
+      }
       if(frame_num % 3 == 0 ) {//3fに１回少し移動する
         miku_spr.position.y --;
         audience_spr_L.position.y -= 0.5;
@@ -960,8 +964,8 @@ function draw() {
     if(kubun!= 99){
       kubun = 99
     }
-    if(24265 < position || 
-      (241550 > position && position < 243000)){
+    if(24265 > position || 
+      (241550 < position && position < 243000)){
       console.log('hoge')
       reset_center();
       miku_spr.rotation = 0;
