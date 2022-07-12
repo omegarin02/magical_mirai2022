@@ -77,12 +77,6 @@ player.addListener({
   },
   onStop: () => {
     console.log("player.onStop");
-    //再生を停止したら、歌詞のインデックスをリセットする
-    lyrics_id = 0;
-    start_latest = 0;
-    monitor_start_time = 0;
-    timing_id = 0;
-    monitor_timing_id=0;
   },
   onTimeUpdate(position) {
     // シークバーの表示を更新
@@ -117,6 +111,12 @@ document.querySelector("#control > a#play").addEventListener("click", (e) => {
       player.requestPause();
     } else {
       player.requestPlay();
+      //再生を停止したら、歌詞のインデックスをリセットする
+      lyrics_id = 0;
+      start_latest = 0;
+      monitor_start_time = 0;
+      timing_id = 0;
+      monitor_timing_id=0;
     }
   }
   return false;
@@ -189,7 +189,7 @@ const monitor_y = 140;
 const monitor_miku_y = monitor_y + 15;
 const L_monitor_miku_x = L_monitor_x-1;
 const R_monitor_miku_x = R_monitor_x-1;
-const max_length = (comment_form_width-comment_buff*2)/font_size;
+const max_length = ((comment_form_width-comment_buff*2)/font_size - 1);
 //let comment_show_width = 300 - comment_buff*2;
 //let comment_show_htight = comment_form_height - comment_buff*2;
 const miku_data_list = annotation_dic["miku"];
@@ -364,8 +364,8 @@ function send_comment(event){ //コメント送信ボタンが押された時の
       let loop_num = 0;
       while(max_length <= tmp_comment.length){
         //tmp_commentからmax_lengthだけ取り出す。
-        show_comments_list.push(tmp_comment.substring(0,max_length-1));
-        tmp_comment = tmp_comment.slice(max_length-1);
+        show_comments_list.push(tmp_comment.substring(0,max_length));
+        tmp_comment = tmp_comment.slice(max_length);
         //show_commnets_listのcomment_id番+loopに挿入する。
         loop_num ++;
       }
