@@ -409,7 +409,11 @@ function draw() {
   }else{
     //ミクの動きに関する処理
     if( 2630 < position && position < 27100){//最初の部分
-      running_flag = false;
+      if(kubun != 0){
+        kubun = 0
+        reset_center();
+        running_flag = false;
+      }
       if(frame_num % 3 == 0 ) {//3fに１回少し移動する
         miku_spr.position.y --;
         audience_spr_L.position.y -= 0.5;
@@ -436,6 +440,10 @@ function draw() {
       miku_spr.position.y -= 0.5;
       audience_spr_L.position.y -= 0.25;
       audience_spr_R.position.y -= 0.25;
+      if ((194030 < position && position < 196500) || 
+          (242650 < position && position < 244000)){
+        miku_spr.changeImage('center_thanks');
+      }
     }else if((29100 < position && position < 36000) || 
             (96100 < position && position < 106400) || 
             (220500 < position && position < 228350) ||
@@ -891,6 +899,7 @@ function draw() {
         audience_spr_R.position.y += 0.5;
       }
     }else if (188990 < position && position < 190500 ){
+      miku_spr.changeImage('center_thanks');
       miku_spr.position.y -= 1;
       audience_spr_L.position.y -= 0.1;
       audience_spr_R.position.y -= 0.1;
@@ -937,9 +946,13 @@ function draw() {
       running_flag = false;
     }
     if(position < 210000){
-      miku_spr.position.x -= 2
+      running_flag = true;
+      running_direction = 'running_right'
+      miku_spr.changeImage(running_direction);
+      miku_spr.position.x += 2;
     }else{
       if(jump_flag === false){
+        funning_flag = false;
         miku_spr.changeImage('center_very_happy');
       }
       miku_spr.position.x = center_x
@@ -951,9 +964,18 @@ function draw() {
     if(kubun!= 99){
       kubun = 99
     }
-    if(24265 < position && position > 241550){
+    if(24265 > position || 
+      (241550 < position && position < 243000)){
+      console.log('hoge')
       reset_center();
       miku_spr.rotation = 0;
+    }else if (position > 244000) {
+      miku_spr.changeImage('center_thanks');
+      miku_spr.rotation = 0;
+      miku_spr.position.x = center_x;
+      miku_spr.position.y = center_y;
+      audience_spr_L.position.y = audience_y;
+      audience_spr_R.position.y = audience_y;
     }
   }
 
