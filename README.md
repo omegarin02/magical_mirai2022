@@ -15,17 +15,16 @@
 作りは、下記画像の赤い枠にコメントを打ち込み、「コメント送信」ボタンをクリックすると  
 そのコメントをリアルタイムに解析し、ミクさんが反応を示してくれます。  
 ちなみに、コメントを入力すると、歌詞モニターに大きくミクさんが映し出される仕様になっています。
-![image](https://user-images.githubusercontent.com/107312091/178005176-9c04b042-14a2-4702-aed3-e1b074038880.png)
-
+![image](https://user-images.githubusercontent.com/107312091/179236068-5d72d82a-f762-485b-bdbe-79707f17bb1f.png)  
 
 ミクさんにとってうれしいコメントと判断すると... 非常に喜んでくれます。
-![image](https://user-images.githubusercontent.com/107312091/178001577-9cdafe34-b952-4b9e-856e-488cbe5a6d6f.png)  
+![image](https://user-images.githubusercontent.com/107312091/179236239-d0de52d3-8bc2-4154-b1df-00a8a154a394.png)  
 
 ミクさんにとっては嬉しいわけではないけど、悪い言葉ではないと判断すると...笑顔で微笑んでくれます。  
-![image](https://user-images.githubusercontent.com/107312091/178001685-62e58c2b-d31f-467e-8407-e95b01a29a92.png)  
+![image](https://user-images.githubusercontent.com/107312091/179236437-27d8d1ca-6091-4910-8379-e8a3bfc1e449.png)  
 
 ミクさんにとって悪い言葉やあからさまな悪口、人違いだと判断すると、悲しみます。（言わないであげてください）  
-![image](https://user-images.githubusercontent.com/107312091/178001779-ee52d356-929c-427f-9da0-54aab7f23045.png)  
+![image](https://user-images.githubusercontent.com/107312091/179236527-13ab66e8-cb5b-4d1d-aa2b-80f860198725.png)  
 
 なお、投稿されたコメントは画面右に記入されていきます。  
 
