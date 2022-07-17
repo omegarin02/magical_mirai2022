@@ -76,7 +76,7 @@ player.addListener({
     play_flag = false;
   },
   onStop: () => {
-    console.log("player.onStop");
+    ;
   },
   onTimeUpdate(position) {
     // シークバーの表示を更新
@@ -96,7 +96,6 @@ seekbar.addEventListener("click", (e) => {
   }
   lyrics = player.video.getChar(lyrics_id)
   if(lyrics.startTime < position){
-    console.log('True')
     timing_id = 0;
     lyrics_id = 0;
   }
@@ -133,13 +132,12 @@ document.querySelector("#control > a#stop").addEventListener("click", (e) => {
 
 
 
-
+//Wepアプリに必要な変数定義
 let miku,
     audience,
     stage;
-
-let screan_width = 980;//
-let screan_height = 650;//
+let screan_width = 980;//ミクさんがダンスを演じる画面サイズ(横)
+let screan_height = 650;//ミクさんが餡巣を演じる画面サイズ(縦)
 let comment_form_width = 300;//コメント欄の横幅
 let comment_form_height = screan_height;//コメント欄の立幅
 let comment_buff = 20;//コメント欄のバッファ
@@ -147,11 +145,11 @@ let comment_text;//コメント欄に表示するためのコメント
 let show_comments_list = [];
 let show_comments;
 let font_size = 20;//コメントの字の大きさ
-let time_span = 0;//
+let time_span = 0;//ある動作が始まってからどれほど時間が経過したかを格納する変数
 let button = document.getElementById("send_button");//
 let button2 = document.getElementById("send_button2")
 let comment = document.getElementById("comment_box");//
-let frame_num = 0;//
+let frame_num = 0;//フレーム単位の処理をするときに利用
 let sec_per_frame = 1000/60;
 let spend_time = 0;//タイマー処理に使う変数
 let random_time = 0;//前回ランダムに移動してから経過した時間を示す
@@ -170,6 +168,7 @@ let position;
 let before_x = 0;
 let before_y = 0;
 let font;
+let move_right_flag = false;
 //ミクの初期座標と移動先の初期座標
 const center_x = 495; 
 const center_y = 425;
@@ -182,21 +181,17 @@ const back_y = 250;
 //audienceの初期座標
 const L_audience_x = 237 ;
 const R_audience_x = 740 ;
-const audience_y = 575 ;
+const audience_y = 585 ;
 const L_monitor_x = 225;
 const R_monitor_x = 775;
 const monitor_y = 140;
-const monitor_miku_y = monitor_y + 15;
+const monitor_miku_y = monitor_y+10;
 const L_monitor_miku_x = L_monitor_x-1;
 const R_monitor_miku_x = R_monitor_x-1;
 const max_length = ((comment_form_width-comment_buff*2)/font_size - 1);
-//let comment_show_width = 300 - comment_buff*2;
-//let comment_show_htight = comment_form_height - comment_buff*2;
 const miku_data_list = annotation_dic["miku"];
 const positive_word_list = annotation_dic["positive"];
 const negative_word_list = annotation_dic["negative"];
-
-//let ai_model;
 
 function preload() {
   miku_img = loadImage('./images/miku_normal.png');
@@ -293,31 +288,24 @@ function check_annotation_negaposi(data){
 }
 
 function get_vector(parsed_data){
-    console.log('get_vector');
     if (parsed_data in w2v_dic){
         return w2v_dic[parsed_data];
     }else{
-        console.log('no data in w2v');
         return new Array(50).fill(0.0);
     }
 }
 
 function predict_comment(data){
-  console.log('parse')
   var parsed_vec = [];
-  let builder = kuromoji.builder({dicPath: DICT_PATH})
+  let builder = kuromoji.builder({dicPath: DICT_PATH});
   builder.build((err, tokenizer)=>{
-    console.log("read kuromoji");
     tokens = tokenizer.tokenize(data);// 解析データの取得
-    console.log("get tokens");
     for (let index = 0 ; index < 18; index++){
     //await tokens.forEach((token)=>{// 解析結果を順番に取得する
       if(tokens.length > index){
         let token = tokens[index];
-        console.log(token["surface_form"]);
         vector = get_vector(token["surface_form"]);//形態素のベクトル化
         parsed_vec = parsed_vec.concat(vector);//ベクトルを追加する処理
-        console.log(vector);
       }else{
         parsed_vec = parsed_vec.concat(Array(50).fill(0.0))
       }
@@ -332,15 +320,10 @@ function predict_comment(data){
 }
 
 function prediction(comment_vec){
-  console.log("predict");
   tf.loadModel('data/model.json').then(model => {
-    console.log('load model')
-    console.log(tf.tensor2d(comment_vec));
     tf_vector = tf.tensor2d(comment_vec);
     result = model.predict(tf_vector);
-    console.log("check result")
     result.data().then(data => { 
-      console.log(data);
       max_index = 0;
       max_score = data[0];
       for (let index = 1 ; index<data.length ; index++){
@@ -350,7 +333,6 @@ function prediction(comment_vec){
             }
         }
       emotion_num_list.push([position,max_index]);
-      console.log(max_index)
       });
   });
 }
@@ -369,13 +351,10 @@ function send_comment(event){ //コメント送信ボタンが押された時の
         //show_commnets_listのcomment_id番+loopに挿入する。
         loop_num ++;
       }
-      console.log('check')
-      console.log(tmp_comment)
       show_comments_list.push(tmp_comment);
     }else{
       show_comments_list.push(comment_text);//コメント配列に追加する
     }
-    console.log(b);
     comment.value = "";
     predict_comment(comment_text);//形態素解析解析してベクトルを返す処理
   }
@@ -507,8 +486,8 @@ function draw() {
               (239150 < position && position < 241550)) {//1番Aメロ、サビ、Cメロの一部
       if(kubun != 4){
         kubun = 4;
-        reset_center()
-        miku_spr.position.y = back_y
+        reset_center();
+        miku_spr.position.y = back_y;
         spend_time = 0;
         miku_position = 1;
         jump_flag = false;
@@ -667,7 +646,6 @@ function draw() {
         miku_spr.changeImage('center_very_happy');
       }
     }
-    console.log
     miku_spr.position.x = center_x;
     miku_spr.position.y -= 10;
     audience_spr_L.position.y -= 1;
@@ -677,6 +655,8 @@ function draw() {
     if(kubun != 9){
       if(kubun != 10){
         miku_spr.position.x = center_x;
+      }else{
+        miku_spr.position.x = center_x + 4*55;
       }
       kubun = 9;
       miku_spr.rotation = 0;
@@ -722,9 +702,10 @@ function draw() {
       }
     }
   
-  }else if(164900 < position && position < 167600){//2番サビ「時をかけて」
+  }else if(164900 < position && position < 167640){//2番サビ「時をかけて」
     if(kubun != 10){
       kubun = 10;
+      miku_spr.position.x = center_x - 2*110;
       miku_spr.position.y = center_y;
       miku_spr.rotation = 0;
       spend_time = 0;
@@ -770,12 +751,12 @@ function draw() {
     if(kubun != 11){
       kubun = 11;
       miku_spr.position.y = center_y;
-      miku_spr.position.x = center_x;
       miku_spr.rotation = 0;
       audience_spr_L.position.y = audience_y;
       audience_spr_R.position.y = audience_y;
       spend_time = 0;
       running_flag = false;
+      move_right_flag = false
       if(do_emotion_flag === false){
         miku_spr.changeImage('center_normal');
       }
@@ -784,22 +765,20 @@ function draw() {
       if(position < 178000){//x軸に関する制御
         miku_spr.position.x -= 1;
       }else{
+        if(move_right_flag === false){
+          miku_spr.position.x = center_x - 256 * 1;
+          move_right_flag = true;
+        }
         miku_spr.position.x += 2;
       }
       if(spend_time < 300){//y軸に関する制御
         miku_spr.position.y -= 0.5;
         audience_spr_L.position.y -= 0.5;
         audience_spr_R.position.y -= 0.5;
-     //   if(do_emotion_flag === false){
-     //     miku_spr.changeImage('center_happy');
-     //   } 
       }else if(spend_time < 600){
         miku_spr.position.y += 0.5;
         audience_spr_L.position.y += 0.5;
         audience_spr_R.position.y += 0.5;
-     //   if(do_emotion_flag === false){
-     //     miku_spr.changeImage('center_normal');
-     //   }
       }
     }else if(spend_time >= 600){
       spend_time = 0;
@@ -807,10 +786,11 @@ function draw() {
     if(frame_num % 3 == 0){
       spend_time += sec_per_frame*3;
     }
-  }else if(181331 < position && position < 183750){
+  }else if(181300 < position && position < 184000){
     if(kubun != 12){
       kubun = 12;
-      reset_center();
+      miku_spr.position.x = center_x + 2 * 103;
+      miku_spr.position.y = center_y;
       spend_time = 0;
       if(do_emotion_flag === false){
         miku_spr.changeImage('center_normal');
@@ -833,6 +813,7 @@ function draw() {
   }else if (184000 < position && position < 190500){
     if(kubun != 13){
       kubun = 13;
+      miku_spr.position.y = center_y;
       miku_spr.rotation = 0;
       spend_time = 0;
       jump_flag = false;
@@ -843,10 +824,13 @@ function draw() {
     }
     //x軸の移動のみ
     if((184000 < position && position < 184800  )){
+      if(running_flag === false){
+        miku_spr.position.x = center_x +  2 * 103;  
+      }
       running_flag = true;
-      running_direction = 'running_left'
+      running_direction = 'running_left';
       miku_spr.changeImage(running_direction);
-      miku_spr.position.x -= 4;
+      miku_spr.position.x -= 8;
       audience_spr_L.position.y -= 0.2;
       audience_spr_R.position.y -= 0.2;
     }else if(185300 < position  && position < 186100){
@@ -858,8 +842,11 @@ function draw() {
         audience_spr_R.position.y = audience_y;
 
       }
+      if(running_flag === false){
+        miku_spr.position.x = center_x - 4*24 ;
+      }
       running_flag = true;
-      running_direction = 'running_right'
+      running_direction = 'running_right';
       miku_spr.changeImage(running_direction);
       miku_spr.position.x += 4;
       audience_spr_L.position.y -= 0.2;
@@ -918,18 +905,19 @@ function draw() {
     if(spend_time < 600){
       if(position < 204410){//x軸に関する制御
         miku_spr.position.x -= 0.3;
+        if(spend_time < 500){//y軸に関する制御
+          miku_spr.position.y -= 0.5;
+          audience_spr_L.position.y -= 0.1;
+          audience_spr_R.position.y -= 0.1;
+        }else if(spend_time < 1000){
+          miku_spr.position.y += 0.5;
+          audience_spr_L.position.y += 0.2;
+          audience_spr_R.position.y += 0.2;
+        }
       }else{
         miku_spr.position.x += 0;
       }
-      if(spend_time < 500){//y軸に関する制御
-        miku_spr.position.y -= 0.5;
-        audience_spr_L.position.y -= 0.1;
-        audience_spr_R.position.y -= 0.1;
-      }else if(spend_time < 1000){
-        miku_spr.position.y += 0.5;
-        audience_spr_L.position.y += 0.2;
-        audience_spr_R.position.y += 0.2;
-      }
+
     }else if(spend_time >= 1000){
       spend_time = 0;
     }
@@ -940,6 +928,8 @@ function draw() {
     if(kubun != 15){
       kubun = 15;
       miku_spr.rotation = 0;
+      miku_spr.position.x = center_x - 0.3 * 475;
+      miku_spr.position.y = center_y - 0.5 * 237; 
       audience_spr_L.position.y = audience_y;
       audience_spr_R.position.y = audience_y;
       jump_flag = false;
@@ -967,7 +957,6 @@ function draw() {
     if(24265 > position || 
       (241550 < position && position < 243000)){
       if(do_emotion_flag === false){
-        console.log('hoge')
         reset_center();
         miku_spr.rotation = 0;
       }
@@ -982,16 +971,6 @@ function draw() {
       }
     }
   }
-
-
-
-
-
-
-
-
-
-
 
 
   }
@@ -1038,7 +1017,6 @@ function draw() {
     text(show_comments_list[comment_id],screan_width+comment_buff+font_size,comment_buff+font_size*comment_id,comment_form_width-comment_buff*2,comment_form_height-comment_buff*2);
   }
   if((emotion_num_list.length > 0) && (do_emotion_flag === false)){//感情判定された結果がある場合。
-    console.log(emotion_num_list)
     emotion_start_time = emotion_num_list[0][0];
     emotion_num = emotion_num_list[0][1];
     do_emotion_flag = true;
@@ -1047,6 +1025,8 @@ function draw() {
     zoom_miku_spr_L.scale = 0.5;
     zoom_miku_spr_R.scale = 0.5; 
     before_y = miku_spr.position.y;
+    zoom_miku_spr_L.position.y = monitor_miku_y;
+    zoom_miku_spr_R.position.y = monitor_miku_y;
   }
   if((emotion_start_time + emotion_span > position) && do_emotion_flag === true){//１回だけイラストを切り替える
     do_emotion_flag = true;
@@ -1078,10 +1058,11 @@ function draw() {
       before_x = miku_spr.position.x
       before_y = miku_spr.position.y
     }else{
-      zoom_miku_spr_L.position.y = monitor_miku_y + (before_y - miku_spr.position.y)*-0.8;
+      zoom_miku_spr_L.position.y += (before_y - miku_spr.position.y)*-0.6;
       zoom_miku_spr_R.position.y = zoom_miku_spr_L.position.y;
       zoom_miku_spr_L.rotation = miku_spr.rotation;
       zoom_miku_spr_R.rotation = miku_spr.rotation;
+      before_y = miku_spr.position.y;
     }
 
   }else if(emotion_start_time + emotion_span < position && do_emotion_flag === true){//表示時間が終わったとき
@@ -1098,22 +1079,7 @@ function draw() {
     zoom_miku_spr_L.position.y = monitor_miku_y;
     zoom_miku_spr_R.position.y = monitor_miku_y;
   }
-
-  //デバッグ用のグリッド線描画
-  if(false){
-    stroke(255,0,0)
-    for (let i = 25; i < screan_width; i=i+25){
-        line(i,0,i,screan_height)
-    }
-    for (let i = 25; i< screan_height; i=i+25){
-        line(0,i,screan_width,i)
-    }
-    textSize(20)
-    fill(255,0,0)
-    text(position,0,600);
-  }
-    console.log(kubun)
-  
+ 
   frame_num++;
   if(frame_num >= 60){
     frame_num = 0;
