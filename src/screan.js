@@ -295,11 +295,22 @@ function get_vector(parsed_data){
     }
 }
 
+function normalize(data){
+  data = data.replace(/　/g," ");
+  data = data.trim();
+  for (let pattern in normalize_dict){
+    while((data.indexOf(pattern) != -1) && (data.length >= pattern.length) && pattern.length > 0){
+      data = data.replace(pattern,normalize_dict[pattern]);
+    }
+  }
+  return data
+}
+
 function predict_comment(data){
   var parsed_vec = [];
   let builder = kuromoji.builder({dicPath: DICT_PATH});
   builder.build((err, tokenizer)=>{
-    tokens = tokenizer.tokenize(data);// 解析データの取得
+    tokens = tokenizer.tokenize(normalize(data));// 解析データの取得
     for (let index = 0 ; index < 18; index++){
     //await tokens.forEach((token)=>{// 解析結果を順番に取得する
       if(tokens.length > index){
@@ -315,7 +326,14 @@ function predict_comment(data){
     parsed_vec = parsed_vec.concat(vector);
     vector = check_annotation_negaposi(data);//ネガポジにかかわるワードがあるか 
     parsed_vec = parsed_vec.concat(vector);
-    score = prediction([parsed_vec]);//ミクの感情を判定する処理
+    let know_word = parsed_vec.every((val, idx, obj) => {
+      return val==0;
+    });
+    if(know_word){
+     emotion_num_list.push([position,2]); 
+    }else{
+      score = prediction([parsed_vec]);//ミクの感情を判定する処理
+    }
   });
 }
 
