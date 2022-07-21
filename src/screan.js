@@ -1037,7 +1037,7 @@ function draw() {
     show_comments_list.shift();
   }
   for (let comment_id=0;comment_id < show_comments_list.length;comment_id++){
-    text(show_comments_list[comment_id],screan_width+comment_buff+font_size,comment_buff+font_size*comment_id,comment_form_width-comment_buff*2,comment_form_height-comment_buff*2);
+    text(show_comments_list[comment_id],screan_width+comment_buff+font_size/2,comment_buff+font_size*comment_id,comment_form_width-comment_buff*2,comment_form_height-comment_buff*2);
   }
   if((emotion_num_list.length > 0) && (do_emotion_flag === false)){//感情判定された結果がある場合。
     emotion_start_time = emotion_num_list[0][0];
