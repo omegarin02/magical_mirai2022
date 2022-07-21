@@ -887,6 +887,7 @@ function draw() {
         (187100 < position && position < 187540)){
       running_flag = false;
       if(jump_flag === false){
+        miku_spr.position.x += 1
         miku_spr.changeImage('center_very_happy');
         jump_flag = true;
         spend_time = 0;
@@ -1032,7 +1033,6 @@ function draw() {
   stroke(127,191,255);
   strokeWeight(1);
   
-  console.log(show_comments_list.length*font_size, comment_form_height-comment_buff*2);
   while(show_comments_list.length * font_size > comment_form_height-comment_buff*2){
     show_comments_list.shift();
   }
@@ -1078,8 +1078,10 @@ function draw() {
       zoom_stage_spr_L.changeImage('zoom');
       zoom_stage_spr_R.addImage('zoom',zoom_stage_img);
       zoom_stage_spr_R.changeImage('zoom');
-      before_x = miku_spr.position.x
-      before_y = miku_spr.position.y
+      before_x = miku_spr.position.x;
+      before_y = miku_spr.position.y;
+      zoom_miku_spr_L.position.y = monitor_miku_y;
+      zoom_miku_spr_R.position.y = monitor_miku_y;
     }else{
       zoom_miku_spr_L.position.y += (before_y - miku_spr.position.y)*-0.6;
       zoom_miku_spr_R.position.y = zoom_miku_spr_L.position.y;
