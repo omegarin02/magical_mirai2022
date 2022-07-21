@@ -163,7 +163,7 @@ jsはさっぱり分からず、一から勉強し、人工知能を作るため
     - [観客](https://www.irasutoya.com/2018/11/blog-post_489.html)
     - [足の渦巻](https://www.irasutoya.com/2017/03/blog-post_45.html)
 
-## 開発者紹介
+## 開発者紹介(Paraiso Orangeの紹介)
  - オメガりん(応募主)  
    - 担当：プログラミング、デザイン、事務手続きなど  
    普段はAI系のエンジニアの卵として会社に勤務している。  
