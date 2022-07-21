@@ -34,27 +34,15 @@ player.addListener({
     }
   },
 
-  /* 楽曲が変わったら呼ばれる */
-  //onAppMediaChange() {
-    // 画面表示をリセット
-  //  overlay.className = "";
-  //  bar.className = "";
-  //  resetChars();
-  //},
 
   /* 楽曲情報が取れたら呼ばれる */
   onVideoReady(video) {
-    // 楽曲情報を表示
-    //document.querySelector("#artist span").textContent =player.data.song.artist.name;
-    //document.querySelector("#song span").textContent = player.data.song.name;
-
     // 最後に表示した文字の情報をリセット
     c = null;
   },
 
   /* 再生コントロールができるようになったら呼ばれる */
   onTimerReady() {
-    //overlay.className = "disabled";
     document.querySelector("#control > a#play").className = "";
     document.querySelector("#control > a#stop").className = "";
   },
