@@ -250,7 +250,7 @@ function setup() {
   zoom_miku_spr_L.addImage('center_thanks',miku_thanks_img);
   zoom_miku_spr_L.addImage('center_very_happy',miku_very_happy_img);
   zoom_miku_spr_L.addImage('running_left',miku_running_left);
-  zoom_miku_spr_L.addImage('runnning_right',miku_running_right);
+  zoom_miku_spr_L.addImage('running_right',miku_running_right);
 
   zoom_miku_spr_R = createSprite(R_monitor_miku_x,monitor_miku_y);
   zoom_miku_spr_R.addImage('center_normal',miku_img);
@@ -259,7 +259,7 @@ function setup() {
   zoom_miku_spr_R.addImage('center_thanks',miku_thanks_img);
   zoom_miku_spr_R.addImage('center_very_happy',miku_very_happy_img);
   zoom_miku_spr_R.addImage('running_left',miku_running_left);
-  zoom_miku_spr_R.addImage('runnning_right',miku_running_right);
+  zoom_miku_spr_R.addImage('running_right',miku_running_right);
 
   zoom_miku_spr_L.scale = 0;
   zoom_miku_spr_R.scale = 0;
