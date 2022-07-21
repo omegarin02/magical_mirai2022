@@ -1031,6 +1031,11 @@ function draw() {
   fill(127,191,255);
   stroke(127,191,255);
   strokeWeight(1);
+  
+  console.log(show_comments_list.length*font_size, comment_form_height-comment_buff*2);
+  while(show_comments_list.length * font_size > comment_form_height-comment_buff*2){
+    show_comments_list.shift();
+  }
   for (let comment_id=0;comment_id < show_comments_list.length;comment_id++){
     text(show_comments_list[comment_id],screan_width+comment_buff+font_size,comment_buff+font_size*comment_id,comment_form_width-comment_buff*2,comment_form_height-comment_buff*2);
   }
