@@ -250,7 +250,7 @@ function setup() {
   zoom_miku_spr_L.addImage('center_thanks',miku_thanks_img);
   zoom_miku_spr_L.addImage('center_very_happy',miku_very_happy_img);
   zoom_miku_spr_L.addImage('running_left',miku_running_left);
-  zoom_miku_spr_L.addImage('runnning_right',miku_running_right);
+  zoom_miku_spr_L.addImage('running_right',miku_running_right);
 
   zoom_miku_spr_R = createSprite(R_monitor_miku_x,monitor_miku_y);
   zoom_miku_spr_R.addImage('center_normal',miku_img);
@@ -259,7 +259,7 @@ function setup() {
   zoom_miku_spr_R.addImage('center_thanks',miku_thanks_img);
   zoom_miku_spr_R.addImage('center_very_happy',miku_very_happy_img);
   zoom_miku_spr_R.addImage('running_left',miku_running_left);
-  zoom_miku_spr_R.addImage('runnning_right',miku_running_right);
+  zoom_miku_spr_R.addImage('running_right',miku_running_right);
 
   zoom_miku_spr_L.scale = 0;
   zoom_miku_spr_R.scale = 0;
@@ -887,6 +887,7 @@ function draw() {
         (187100 < position && position < 187540)){
       running_flag = false;
       if(jump_flag === false){
+        miku_spr.position.x += 1
         miku_spr.changeImage('center_very_happy');
         jump_flag = true;
         spend_time = 0;
@@ -1031,6 +1032,10 @@ function draw() {
   fill(127,191,255);
   stroke(127,191,255);
   strokeWeight(1);
+  
+  while(show_comments_list.length * font_size > comment_form_height-comment_buff*2){
+    show_comments_list.shift();
+  }
   for (let comment_id=0;comment_id < show_comments_list.length;comment_id++){
     text(show_comments_list[comment_id],screan_width+comment_buff+font_size,comment_buff+font_size*comment_id,comment_form_width-comment_buff*2,comment_form_height-comment_buff*2);
   }
@@ -1073,8 +1078,10 @@ function draw() {
       zoom_stage_spr_L.changeImage('zoom');
       zoom_stage_spr_R.addImage('zoom',zoom_stage_img);
       zoom_stage_spr_R.changeImage('zoom');
-      before_x = miku_spr.position.x
-      before_y = miku_spr.position.y
+      before_x = miku_spr.position.x;
+      before_y = miku_spr.position.y;
+      zoom_miku_spr_L.position.y = monitor_miku_y;
+      zoom_miku_spr_R.position.y = monitor_miku_y;
     }else{
       zoom_miku_spr_L.position.y += (before_y - miku_spr.position.y)*-0.6;
       zoom_miku_spr_R.position.y = zoom_miku_spr_L.position.y;
